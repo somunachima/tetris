@@ -12,7 +12,7 @@ export type BoardState = {
   droppingShape: BlockShape;
 };
 
-function useGameBoard(): [BoardState, Dispatch<Action>] {
+export function useGameBoard(): [BoardState, Dispatch<Action>] {
   const [boardState, dispatchBoardState] = useReducer(
     boardReducer,
     {
@@ -50,21 +50,26 @@ type Action = {
 };
 
 function boardReducer(state: BoardState, action: Action): BoardState {
+  let newState = { ...state };
   switch (action.type) {
     case 'start':
-      { const firstBlock = getRandomBlock();
+      const firstBlock = getRandomBlock();
       return {
         board: getEmptyBoard(),
         droppingRow: 0,
         droppingColumn: 3,
         droppingBlock: firstBlock,
         droppingShape: SHAPES[firstBlock].shape,
-      }; }
+      };
     case 'drop':
+      newState.droppingRow++;
+        break;
     case 'commit':
     case 'move':
     default:
-      { const unhandledType: never = action.type;
-      throw new Error(`Action cannot be handled: ${unhandledType}`); }
+      const unhandledType: never = action.type;
+      throw new Error(`Action cannot be handled: ${unhandledType}`);
   }
+
+  return newState;
 }
