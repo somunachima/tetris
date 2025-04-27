@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { hasCollisions, useGameBoard } from "./useGameBoard";
+import { getRandomBlock, hasCollisions, useGameBoard } from "./useGameBoard";
 import { useInterval } from "./useInterval";
 import { Block, BlockShape, BoardShape } from "../types";
 
@@ -12,6 +12,7 @@ export function useGame() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [tickSpeed, setTickSpeed] = useState<TickSpeed | null>(null);
   const [isCommitting, setIsCommitting] = useState(false);
+  const [upcomingBlocks, setUpcomingBlocks] = useState<Block[]>([]);
 
   const [
     { board, droppingRow, droppingColumn, droppingBlock, droppingShape },
@@ -19,9 +20,15 @@ export function useGame() {
   ] = useGameBoard();
 
   const startGame = useCallback(() => {
+    const startingBlocks = [
+      getRandomBlock(),
+      getRandomBlock(),
+      getRandomBlock(),
+    ];
+    setUpcomingBlocks(startingBlocks);
     setIsPlaying(true);
     setTickSpeed(TickSpeed.Normal);
-    dispatchBoardState({ type: 'start'})
+    dispatchBoardState({ type: 'start' })
   }, [dispatchBoardState]);
 
   const commitPosition = useCallback(() => {
@@ -40,17 +47,15 @@ export function useGame() {
       droppingColumn
     );
 
+    const newUpcomingBlocks = structuredClone(upcomingBlocks) as Block[];
+    const newBlock = newUpcomingBlocks.pop() as Block;
+    newUpcomingBlocks.unshift(getRandomBlock());
+
     setTickSpeed(TickSpeed.Normal);
-    dispatchBoardState({ type: 'commit', newBoard });
+    setUpcomingBlocks(newUpcomingBlocks);
+    dispatchBoardState({ type: 'commit', newBoard, newBlock });
     setIsCommitting(false);
-  }, [
-    board,
-    dispatchBoardState,
-    droppingBlock,
-    droppingColumn,
-    droppingRow,
-    droppingShape
-  ]);
+  }, [board, dispatchBoardState, droppingBlock, droppingColumn, droppingRow, droppingShape, upcomingBlocks]);
 
   const gameTick = useCallback(() => {
     if (isCommitting) {

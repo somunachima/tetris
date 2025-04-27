@@ -74,6 +74,7 @@ export function hasCollisions(
 type Action = {
   type: 'start' | 'drop' | 'commit' | 'move';
   newBoard?: BoardShape,
+  newBlock?: Block,
 };
 
 function boardReducer(state: BoardState, action: Action): BoardState {
@@ -96,8 +97,8 @@ function boardReducer(state: BoardState, action: Action): BoardState {
         board: action.newBoard,
         droppingRow: 0,
         droppingColumn: 3,
-        droppingBlock: state.droppingBlock,
-        droppingShape: state.droppingShape,
+        droppingBlock: action.newBlock!,
+        droppingShape: SHAPES[action.newBlock!].shape,
       }
     case 'move':
     default:

@@ -10,7 +10,7 @@ function App() {
       <h1 className="title"><strong>TETRIS</strong></h1>
       <div className="button">
         {isPlaying ? null : (
-          <button onClick={startGame}>New Game</button>
+          <button onClick={startGame}>Start Game</button>
         )}
       </div>
       <Board currentBoard={board}/>
