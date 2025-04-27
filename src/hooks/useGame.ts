@@ -7,7 +7,6 @@ enum TickSpeed {
   Normal = 1000,
 }
 
-
 export function useGame() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [tickSpeed, setTickSpeed] = useState<TickSpeed | null>(null);
@@ -41,8 +40,7 @@ export function useGame() {
     .forEach((row: boolean[], rowIndex: number) => {
       row.forEach((isSet: boolean, colIndex: number) => {
         if (isSet) {
-          board[droppingRow + rowIndex][droppingColumn + colIndex] =
-            droppingBlock;
+          renderedBoard[droppingRow + rowIndex][droppingColumn + colIndex] = droppingBlock;
         }
       });
     });
