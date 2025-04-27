@@ -16,6 +16,10 @@
   width: fit-content;
 }
 
+.button {
+  padding-bottom: 2%;
+}
+
 .row {
   display: flex;
 }
