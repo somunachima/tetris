@@ -18,6 +18,12 @@ export type BoardShape = CellOptions[][];
 
 export type BlockShape = boolean[][];
 
+type ShapesObj = {
+  [key in Block]: {
+    shape: BlockShape;
+  }
+}
+
 export const SHAPES: ShapesObj = {
   O: {
     shape: [
