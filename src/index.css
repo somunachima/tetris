@@ -2,6 +2,54 @@
   font-family: Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  color: #ffffff;
 
   background-color: #000000;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+}
+
+.cell.O {
+  background-color: yellow;
+}
+
+.cell.I {
+  background-color: cyan;
+}
+
+.cell.S {
+  background-color: red;
+}
+
+.cell.Z {
+  background-color: green;
+}
+
+.cell.L {
+  background-color: orange;
+}
+
+.cell.J {
+  background-color: palevioletred;
+}
+
+.cell.T {
+  background-color: purple;
+}
+
+.cell.Empty {
+  background-color: white;
 }
