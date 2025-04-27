@@ -15,7 +15,7 @@ This is a simple webapp which people can use to keep track of a shopping list.
 ## Additional Features:
 -
 
-## Techn Stack:
+## Tech Stack:
 - React
 - Typescript
 
