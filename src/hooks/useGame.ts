@@ -1,8 +1,10 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useGameBoard } from "./useGameBoard";
+import { useInterval } from "./useInterval";
+import { BoardShape } from "../types";
 
 enum TickSpeed {
-  Normal = 800,
+  Normal = 1000,
 }
 
 
@@ -15,8 +17,14 @@ export function useGame() {
     dispatchBoardState,
   ] = useGameBoard();
 
+  const startGame = useCallback(() => {
+    setIsPlaying(true);
+    setTickSpeed(TickSpeed.Normal);
+    dispatchBoardState({ type: 'start'})
+  }, [dispatchBoardState]);
+
   const gameTick = useCallback(() => {
-    dispatchBoardState({ type: `drop`});
+    dispatchBoardState({ type: 'drop'});
   }, [dispatchBoardState]);
 
   useInterval(() => {
@@ -25,4 +33,24 @@ export function useGame() {
     }
     gameTick();
   }, tickSpeed);
+
+  const renderedBoard = structuredClone(board) as BoardShape;
+  if (isPlaying) {
+    droppingShape
+    .filter((row) => row.some((isSet) => isSet))
+    .forEach((row: boolean[], rowIndex: number) => {
+      row.forEach((isSet: boolean, colIndex: number) => {
+        if (isSet) {
+          board[droppingRow + rowIndex][droppingColumn + colIndex] =
+            droppingBlock;
+        }
+      });
+    });
+  }
+
+  return {
+    board: renderedBoard,
+    startGame,
+    isPlaying,
+  };
 }
