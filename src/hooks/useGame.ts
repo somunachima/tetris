@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { getRandomBlock, hasCollisions, useGameBoard } from "./useGameBoard";
+import { BOARD_HEIGHT, getRandomBlock, hasCollisions, useGameBoard } from "./useGameBoard";
 import { useInterval } from "./useInterval";
-import { Block, BlockShape, BoardShape } from "../types";
+import { Block, BlockShape, BoardShape, EmptyCell } from "../types";
 
 enum TickSpeed {
   Normal = 1000,
@@ -25,9 +25,9 @@ export function useGame() {
       getRandomBlock(),
       getRandomBlock(),
     ];
-    setUpcomingBlocks(startingBlocks);
     setIsPlaying(true);
     setTickSpeed(TickSpeed.Normal);
+    setUpcomingBlocks(startingBlocks);
     dispatchBoardState({ type: 'start' })
   }, [dispatchBoardState]);
 
@@ -46,6 +46,12 @@ export function useGame() {
       droppingRow,
       droppingColumn
     );
+
+    for (let row = BOARD_HEIGHT - 1; row >= 0; row--) {
+      if (newBoard[row].every((entry) => entry !== EmptyCell.Empty)) {
+        newBoard.splice(row, 1);
+      }
+    }
 
     const newUpcomingBlocks = structuredClone(upcomingBlocks) as Block[];
     const newBlock = newUpcomingBlocks.pop() as Block;
@@ -79,12 +85,32 @@ export function useGame() {
     if (!isPlaying) {
       return;
     }
+    let isPressingLeft = false;
+    let isPressingRight = false;
+    let moveIntervalID: number | undefined;
+
+    const updateMovementInterval = () => {
+      clearInterval(moveIntervalID);
+      dispatchBoardState({
+        type: 'move',
+        isPressingLeft,
+        isPressingRight,
+      });
+      moveIntervalID = setInterval(() => {
+        dispatchBoardState({
+          type: 'move',
+          isPressingLeft,
+          isPressingRight,
+        });
+      }, 300);
+    };
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'ArrowLeft') {
         dispatchBoardState({
           type: 'move',
           isPressingLeft: true,
         });
+        updateMovementInterval();
       }
 
       if (event.key === 'ArrowRight') {
@@ -92,13 +118,34 @@ export function useGame() {
           type: 'move',
           isPressingRight: true,
         });
+        updateMovementInterval();
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowLeft') {
+        dispatchBoardState({
+          type: 'move',
+          isPressingLeft: false,
+        });
+        updateMovementInterval();
+      }
+
+      if (event.key === 'ArrowRight') {
+        dispatchBoardState({
+          type: 'move',
+          isPressingRight: false,
+        });
+        updateMovementInterval();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
     };
   }, [dispatchBoardState, isPlaying]);
 
