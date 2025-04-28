@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { BOARD_HEIGHT, getRandomBlock, hasCollisions, useGameBoard } from "./useGameBoard";
 import { useInterval } from "./useInterval";
-import { Block, BlockShape, BoardShape, EmptyCell } from "../types";
+import { Block, BlockShape, BoardShape, EmptyCell, SHAPES } from "../types";
 
 enum TickSpeed {
   Normal = 1000,
@@ -56,6 +56,13 @@ export function useGame() {
     const newUpcomingBlocks = structuredClone(upcomingBlocks) as Block[];
     const newBlock = newUpcomingBlocks.pop() as Block;
     newUpcomingBlocks.unshift(getRandomBlock());
+
+    if (hasCollisions(board, SHAPES[newBlock].shape, 0, 3)) {
+      setIsPlaying(false);
+      setTickSpeed(null);
+    } else {
+      setTickSpeed(TickSpeed.Normal);
+    }
 
     setTickSpeed(TickSpeed.Normal);
     setUpcomingBlocks(newUpcomingBlocks);
