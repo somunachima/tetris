@@ -10,6 +10,7 @@ enum TickSpeed {
 
 export function useGame() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [hasStartedOnce, setHasStartedOnce] = useState(false);
   const [tickSpeed, setTickSpeed] = useState<TickSpeed | null>(null);
   const [isCommitting, setIsCommitting] = useState(false);
   const [upcomingBlocks, setUpcomingBlocks] = useState<Block[]>([]);
@@ -26,6 +27,7 @@ export function useGame() {
       getRandomBlock(),
     ];
     setIsPlaying(true);
+    setHasStartedOnce(true);
     setTickSpeed(TickSpeed.Normal);
     setUpcomingBlocks(startingBlocks);
     dispatchBoardState({ type: 'start' })
@@ -189,5 +191,6 @@ export function useGame() {
     board: renderedBoard,
     startGame,
     isPlaying,
+    hasStartedOnce,
   };
 }
