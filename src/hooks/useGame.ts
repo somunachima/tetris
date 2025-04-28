@@ -60,7 +60,7 @@ export function useGame() {
     const newBlock = newUpcomingBlocks.pop() as Block;
     newUpcomingBlocks.unshift(getRandomBlock());
 
-    if (hasCollisions(board, SHAPES[newBlock].shape, 0, 3)) {
+    if (hasCollisions(board, SHAPES[newBlock].shape, 0, 0)) {
       setIsPlaying(false);
       setTickSpeed(null);
     } else {
