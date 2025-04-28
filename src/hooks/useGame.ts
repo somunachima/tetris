@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getRandomBlock, hasCollisions, useGameBoard } from "./useGameBoard";
 import { useInterval } from "./useInterval";
 import { Block, BlockShape, BoardShape } from "../types";
@@ -74,6 +74,33 @@ export function useGame() {
     }
     gameTick();
   }, tickSpeed);
+
+  useEffect(() => {
+    if (!isPlaying) {
+      return;
+    }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowLeft') {
+        dispatchBoardState({
+          type: 'move',
+          isPressingLeft: true,
+        });
+      }
+
+      if (event.key === 'ArrowRight') {
+        dispatchBoardState({
+          type: 'move',
+          isPressingRight: true,
+        });
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [dispatchBoardState, isPlaying]);
 
   const renderedBoard = structuredClone(board) as BoardShape;
   if (isPlaying) {

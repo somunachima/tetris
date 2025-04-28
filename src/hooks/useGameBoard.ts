@@ -75,6 +75,8 @@ type Action = {
   type: 'start' | 'drop' | 'commit' | 'move';
   newBoard?: BoardShape,
   newBlock?: Block,
+  isPressingLeft?: boolean;
+  isPressingRight?: boolean;
 };
 
 function boardReducer(state: BoardState, action: Action): BoardState {
@@ -101,6 +103,17 @@ function boardReducer(state: BoardState, action: Action): BoardState {
         droppingShape: SHAPES[action.newBlock!].shape,
       }
     case 'move':
+      let columnOffset = action.isPressingLeft ? -1 : 0;
+      columnOffset = action.isPressingRight ? 1 : columnOffset;
+      if (!hasCollisions(
+          newState.board,
+          newState.droppingShape,
+          newState.droppingRow,
+          newState.droppingColumn + columnOffset)
+      ) {
+          newState.droppingColumn += columnOffset;
+        }
+      break;
     default:
       const unhandledType: never = action.type;
       throw new Error(`Action cannot be handled: ${unhandledType}`);
