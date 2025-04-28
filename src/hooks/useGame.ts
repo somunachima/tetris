@@ -52,6 +52,7 @@ export function useGame() {
     for (let row = BOARD_HEIGHT - 1; row >= 0; row--) {
       if (newBoard[row].every((entry) => entry !== EmptyCell.Empty)) {
         newBoard.splice(row, 1);
+        row++;
       }
     }
 
