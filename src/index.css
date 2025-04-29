@@ -1,23 +1,75 @@
 :root {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Press Start 2P', monospace;
   line-height: 1.5;
   font-weight: 400;
   color: #ffffff;
 
-  background-color: #000000;
+  background-color: #161616;
+}
+
+.title {
+  font-size: 50px;
+}
+
+.instructions {
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  color: #ffffff;
+}
+
+.instructions h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.instructions ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.instructions li {
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.instructions .arrow {
+  font-weight: bold;
+  display: inline-block;
+  background-color: #272727;
+  border: 2px solid #ffffff;
+  border-radius: 6px;
+  padding: 0.05rem 0.65rem;
+  font-family: monospace;
+  font-size: 20px;
+  margin: 0 2px;
 }
 
 .board {
   display: flex;
   flex-direction: column;
-  border: 2px solid black;
+  border: 4px solid #cacacf;
+  border-radius: 5px;
   user-select: none;
   margin: auto;
   width: fit-content;
 }
 
 .button {
-  padding-bottom: 2%;
+  font-weight: bold;
+  margin: 4% 4%;
+  padding: 10px 15px 10px 15px;
+  border: 5px none #cacacf;
+  border-radius: 3px;
+  background-color: #cacacf;
+  font-family: 'Press Start 2P', monospace;
+}
+
+.button:hover {
+  color: #ffffff;
+  background-color: #161616;
+  border: 2px solid #ffffff;
+  transform: scale(1);
+  transition: all 0.3s;
 }
 
 .row {
@@ -28,37 +80,37 @@
   width: 30px;
   height: 30px;
   aspect-ratio: 1;
-  border: 1px solid black;
+  border: 2px solid #cacacf;
 }
 
 .cell.O {
-  background-color: yellow;
+  background-color: #EBB305;
 }
 
 .cell.I {
-  background-color: cyan;
+  background-color: #0CA5E9;
 }
 
 .cell.S {
-  background-color: red;
+  background-color: #DC2625;
 }
 
 .cell.Z {
-  background-color: green;
+  background-color: #15B8A6;
 }
 
 .cell.L {
-  background-color: orange;
+  background-color: #F97315;
 }
 
 .cell.J {
-  background-color: palevioletred;
+  background-color: #EC4899;
 }
 
 .cell.T {
-  background-color: purple;
+  background-color: #8B5CF6;
 }
 
 .cell.Empty {
-  background-color: rgb(200, 200, 200);
+  background-color: #D4D4D8;
 }
