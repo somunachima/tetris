@@ -1,5 +1,5 @@
 # Tetris
-This webapp is a tribute to the original Tetris game. I built it to learn more about React. It is not for any commercial purposes and not affiliated with The Tetris Company.
+This webapp is a tribute to the original Tetris game. I built it to learn more about React and TypeScript. It is not for any commercial purposes and not affiliated with The Tetris Company.
 
 ## Set up:
 - Clone the respository
