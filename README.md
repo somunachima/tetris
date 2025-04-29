@@ -14,13 +14,14 @@ git clone https://www.github.com/somunachima/tetris
 
 - Unzip the folder ```tetris-som.zip```
   
-3. Install the dependencies and run
+3. After doing either OPTION ONE or TWO, install the dependencies and run
 
 ```
 cd tetris
 npm install
 npm run dev
 ```
+
 4. Open the local URL in your terminal: [http://localhost:5173](http://localhost:5173).
 
 ## Live Demo
