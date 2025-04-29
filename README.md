@@ -10,28 +10,18 @@ This webapp is a tribute to the original Tetris game. I built it to learn more a
 ```
 git clone https://www.github.com/somunachima/tetris
 ```
+2. OPTION TWO
 
-- Install the dependencies and run
+- Unzip the folder ```tetris-som.zip```
+  
+3. Install the dependencies and run
 
 ```
 cd tetris
 npm install
 npm run dev
 ```
-- Open the local URL in your terminal: [http://localhost:5173](http://localhost:5173).
-
-2. OPTION TWO
-
-- Unzip the folder ```tetris-som.zip```
-
-- Install the dependencies and run
-
-```
-cd tetris-som
-npm install
-npm run dev
-```
-- Open the local URL in your terminal: [http://localhost:5173](http://localhost:5173).
+4. Open the local URL in your terminal: [http://localhost:5173](http://localhost:5173).
 
 ## Live Demo
 - [https://tetris-gilt-phi.vercel.app/](https://tetris-gilt-phi.vercel.app/)
