@@ -56,6 +56,7 @@ Besides the issues below, there are few more features I want to build:
 - [ ] Allow users to rotate block clockwise
 - [ ] Score tracking - increment score when lines cleared
 - [ ] Keyboard support for mobile devices
+- [ ] Add some unit tests using Jest
 
 ### Known Issues
 - The "Start Game" and "New Game" button disappears while the game is playing
