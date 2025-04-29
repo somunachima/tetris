@@ -2,6 +2,9 @@
 This webapp is a tribute to the original Tetris game. I built it to learn more about React and TypeScript. It is not for any commercial purposes and not affiliated with The Tetris Company.
 
 ## Set up:
+
+1. OPTION ONE
+   
 - Clone the respository
 
 ```
@@ -11,7 +14,20 @@ git clone https://www.github.com/somunachima/tetris
 - Install the dependencies and run
 
 ```
-cd react-tetris-ts
+cd tetris
+npm install
+npm run dev
+```
+- Open the local URL in your terminal: [http://localhost:5173](http://localhost:5173).
+
+2. OPTION TWO
+
+- Unzip the folder ```tetris-som.zip```
+
+- Install the dependencies and run
+
+```
+cd tetris-som
 npm install
 npm run dev
 ```
