@@ -41,7 +41,7 @@ npm run dev
 - Vercel
 
 ## Assumptions:
-- The orientation of the blocks match the orientation of the blocks displayed in Encord's brief
+- The orientation of the blocks match the orientation of the blocks displayed in the brief
 
 ## Known Limitations:
 - The blocks cannont be rotated yet
