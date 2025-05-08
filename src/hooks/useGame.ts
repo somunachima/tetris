@@ -96,6 +96,7 @@ export function useGame() {
     }
     let isPressingLeft = false;
     let isPressingRight = false;
+    let isPressingDown = false;
     let moveIntervalID: number | undefined;
 
     const updateMovementInterval = () => {
@@ -104,20 +105,22 @@ export function useGame() {
         type: 'move',
         isPressingLeft,
         isPressingRight,
+        isPressingDown,
       });
       moveIntervalID = setInterval(() => {
         dispatchBoardState({
           type: 'move',
           isPressingLeft,
           isPressingRight,
+          isPressingDown,
         });
       }, 300);
     };
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'ArrowLeft') {
+      if (event.key === 'ArrowDown') {
         dispatchBoardState({
           type: 'move',
-          isPressingLeft: true,
+          isPressingDown: true,
         });
         updateMovementInterval();
       }
@@ -129,32 +132,20 @@ export function useGame() {
         });
         updateMovementInterval();
       }
-    };
 
-    const handleKeyUp = (event: KeyboardEvent) => {
       if (event.key === 'ArrowLeft') {
         dispatchBoardState({
           type: 'move',
-          isPressingLeft: false,
-        });
-        updateMovementInterval();
-      }
-
-      if (event.key === 'ArrowRight') {
-        dispatchBoardState({
-          type: 'move',
-          isPressingRight: false,
+          isPressingLeft: true,
         });
         updateMovementInterval();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('keyup', handleKeyUp);
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('keyup', handleKeyUp);
     };
   }, [dispatchBoardState, isPlaying]);
 

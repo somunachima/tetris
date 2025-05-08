@@ -4,7 +4,7 @@ This webapp is a tribute to the original Tetris game. I built it to learn more a
 ## Set up:
 
 1. OPTION ONE
-   
+
 - Clone the respository
 
 ```
@@ -13,7 +13,7 @@ git clone https://www.github.com/somunachima/tetris
 2. OPTION TWO
 
 - Unzip the folder ```tetris-som.zip```
-  
+
 3. After doing either OPTION ONE or TWO, install the dependencies and run
 
 ```

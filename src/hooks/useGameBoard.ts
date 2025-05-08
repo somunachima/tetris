@@ -77,6 +77,7 @@ type Action = {
   newBlock?: Block,
   isPressingLeft?: boolean;
   isPressingRight?: boolean;
+  isPressingDown?: boolean;
 };
 
 function boardReducer(state: BoardState, action: Action): BoardState {
@@ -106,20 +107,27 @@ function boardReducer(state: BoardState, action: Action): BoardState {
         droppingShape: SHAPES[action.newBlock!].shape,
       }
     case 'move':
-      let columnOffset = action.isPressingLeft ? -1 : 0;
+      {
+        let columnOffset = action.isPressingLeft ? -1 : 0;
       columnOffset = action.isPressingRight ? 1 : columnOffset;
+      let rowOffset = action.isPressingDown ? -1 : 0;
+      rowOffset = action.isPressingDown ? 1 : rowOffset;
       if (!hasCollisions(
           newState.board,
           newState.droppingShape,
-          newState.droppingRow,
+          newState.droppingRow + rowOffset,
           newState.droppingColumn + columnOffset)
       ) {
           newState.droppingColumn += columnOffset;
+          newState.droppingRow += rowOffset;
         }
       break;
+    }
     default:
+      {
       const unhandledType: never = action.type;
       throw new Error(`Action cannot be handled: ${unhandledType}`);
+      }
   }
 
   return newState;
